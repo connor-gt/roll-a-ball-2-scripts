@@ -1,35 +1,49 @@
-# RollABall2-Scripts
-The scripts for my mini game sequel to Roll-A-Ball, Roll-A-Ball 2. These scripts are available for portfolio and educational purposes.
+# Roll-A-Ball 2
 
-# Development Timeline
-August 2024 - October 2024
+Roll-A-Ball 2 takes [my first game's](https://github.com/connor-gt/RollABall-Scripts) ball-rolling concept and expands it into 12 handcrafted levels with moving obstacles and a camera the player can control.
 
-# About the Project
-Roll-A-Ball was my attempt to take the original Roll-A-Ball concept and develop it into a more structured, content-driven experience. Instead of
-relying on a single play area with a static randomized path, this sequel has 12 manually-created levels, each with its own layout, difficulty, and
-moving obstacle patterns.
+**Details:** Unity/C#, scripts-only repository  
+**Development Timeline:** August 2024 - October 2024
 
-Upon starting the game, the player only has the first level unlocked and they may unlock levels by completing the previous level. Each level also
-increases in difficulty, with new obstacles being introduced throughout the game as the player progresses. Also, there are 3 main themes: levels
-1-4 have a cloud theme, levels 5-8 have a fire theme, and levels 9-12 have a void theme.
+<p align="center">
+  <img src="Screenshots/RollABall2_menu.jpg" alt="Roll-A-Ball 2 main menu" width="720">
+  <br>
+  <em>Main menu</em>
+</p>
 
-# Development Reflection
-One of the biggest upgrades from Roll-A-Ball is that in Roll-A-Ball 2, the player can actually use the mouse to look around with the camera. While
-the original used a static overhead camera and simple movements, Roll-A-Ball 2 required a more advanced setup that combined a free-look camera with
-tighter player controls, which were needed in order for the player to navigate through the moving levels. This was also the first project where I
-created some of my own assets, which gave me a chance to understand the full process of 3D model creation, texturing, and importing.
+## Gameplay
 
-In regards to programming, I took what I learned from Crazy Runner and tried to make the game's systems and scripts more modular and less dependent
-on each other. This is because I noticed while developing Crazy Runner there were a lot of dependencies that made testing a lot more difficult, as
-an example I would have to start the game from the main menu every time I wanted to test something in the game scene, which made testing the game
-a lot more time consuming.
+The goal is to reach the end of each level without falling or getting hit off the track by an obstacle. Each level has its own layout, with new obstacles and more difficult movement patterns introduced as the player progresses. Completing a level unlocks the next one.
 
-![alt text](https://github.com/ccgstudiogit/RollABall2-Scripts/blob/main/Screenshots/RollABall2_menu.jpg)
+The levels are split into three themes: clouds for levels 1-4, fire for levels 5-8, and void for levels 9-12. The player can use the mouse to look around, and movement follows the camera's direction. Moving sections of the track and rotating obstacles also mean the player has to pay attention to timing before moving forward.
 
-![alt text](https://github.com/ccgstudiogit/RollABall2-Scripts/blob/main/Gifs/void_level.gif)
+| Cloud-theme level | Fire-theme level | Void-theme level |
+| :---: | :---: | :---: |
+| <img src="Gifs/clouds.gif" alt="Moving obstacles in a cloud-themed level" width="360"> | <img src="Gifs/fire.gif" alt="Moving obstacles in a fire-themed level" width="360"> | <img src="Gifs/void.gif" alt="Moving obstacles in a void-themed level" width="360"> |
 
-![alt text](https://github.com/ccgstudiogit/RollABall2-Scripts/blob/main/Gifs/clouds.gif)
+## Code Tour
 
-![alt text](https://github.com/ccgstudiogit/RollABall2-Scripts/blob/main/Gifs/fire.gif)
+These scripts are good starting points for looking through the project:
 
-![alt text](https://github.com/ccgstudiogit/RollABall2-Scripts/blob/main/Gifs/void.gif)
+| Script | What it handles |
+| --- | --- |
+| [PlayerController.cs](Scripts/Player/PlayerController.cs) | Handles camera-relative movement, ground checks, and interactions with objects that implement ITriggerable. |
+| [CustomCinemachineInputProvider.cs](Scripts/Camera/CustomCinemachineInputProvider.cs) | Controls when the Cinemachine camera receives look input. |
+| [MoveSideToSide.cs](Scripts/Obstacles%26TrackPieces/MoveSideToSide.cs) | Moves obstacles or track pieces between two positions, with configurable timing and delays. |
+| [GameController.cs](Scripts/GameState/GameController.cs) | Handles winning, losing, and pausing, and records level progress. |
+| [Bootstrapper.cs](Scripts/Systems/Bootstrapper.cs) | Creates the shared persistent objects before a scene loads. |
+
+---
+<p align="center">
+  <img src="Gifs/void_level.gif" width="720">
+  <br>
+  <em>Admiring the view</em>
+</p>
+
+---
+
+## Looking Back
+
+After finishing Crazy Runner, I wanted to come back to the Roll-A-Ball idea and make it more interactive. Adding a camera the player could control meant the movement also needed to follow the camera's direction. Creating individual levels gave me more control over the challenges, and I could build layouts around specific moving obstacles. I also created some of my own assets for this project, which gave me more experience with modeling, texturing, and bringing those assets into Unity.
+
+One issue I wanted to fix from my time with Crazy Runner was having to start from the main menu whenever I wanted to test the game scene, because other scripts depended on objects initialized there. For this project, I added a bootstrapper to create shared objects before scenes load which made testing in Unity so much easier because I load straight into a level without first having to go through the main menu (like I did with Crazy Runner). I also started using interfaces and events to reduce some of the direct dependencies between scripts. For example, the player controller can activate an object through ITriggerable without needing to know which specific type of trigger it is.
