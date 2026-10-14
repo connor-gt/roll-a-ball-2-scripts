@@ -1,6 +1,6 @@
 # Roll-A-Ball 2
 
-Roll-A-Ball 2 takes [my first game's](https://github.com/connor-gt/RollABall-Scripts) ball-rolling concept and expands it into 12 handcrafted levels with moving obstacles and a camera the player can control.
+Roll-A-Ball 2 takes [my first game's](https://github.com/connor-gt/roll-a-ball-scripts) ball-rolling concept and expands it into 12 handcrafted levels with moving obstacles and a camera the player can control.
 
 **Details:** Unity/C#, scripts-only repository  
 **Development Timeline:** August 2024 - October 2024
